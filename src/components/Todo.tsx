@@ -18,13 +18,14 @@ export const Todo: FC<TProps> = ({ todo }) => {
 const styles = StyleSheet.create({
 	todoText: {
 		color: '#000',
+		fontSize: 20,
 	},
 	todoDiv: {
-		backgroundColor: '#91b',
-		borderColor: '#020202',
+		backgroundColor: '#f5f5f5',
+		borderColor: '#999991',
 		borderStyle: 'solid',
 		borderWidth: 2,
-		marginTop: 5,
+		marginVertical: 5,
 		borderRadius: 6,
 		width: '80%',
 		padding: 5,

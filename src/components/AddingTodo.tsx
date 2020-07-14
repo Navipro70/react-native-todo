@@ -21,8 +21,14 @@ export const AddingTodo: FC<TProps> = ({ addTodo }) => {
 				style={styles.customInput}
 				onChangeText={setInputText}
 				value={inputText}
+				placeholder="Enter your todo"
+				placeholderTextColor="#fff"
 			/>
-			<Button title=" + " onPress={handleAddingTodo} />
+			<Button
+				disabled={!Boolean(inputText)}
+				title=" + "
+				onPress={handleAddingTodo}
+			/>
 		</View>
 	)
 }
@@ -44,5 +50,6 @@ const styles = StyleSheet.create({
 		borderStyle: 'solid',
 		borderWidth: 1,
 		borderRadius: 10,
+		fontSize: 20,
 	},
 })

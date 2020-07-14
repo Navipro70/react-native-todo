@@ -15,7 +15,10 @@ export default function App() {
 		<>
 			<Navbar />
 			<AddingTodo addTodo={addTodo} />
-			<ScrollView style={styles.allTodos}>
+			<ScrollView
+				style={styles.allTodos}
+				contentContainerStyle={{ alignItems: 'center' }}
+			>
 				{todos ? (
 					todos.map((todo) => <Todo key={todo.timestamp} todo={todo} />)
 				) : (
@@ -29,6 +32,6 @@ export default function App() {
 const styles = StyleSheet.create({
 	allTodos: {
 		backgroundColor: '#fff',
-		width: '30%'
+		width: '100%',
 	},
 })
