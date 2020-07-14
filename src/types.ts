@@ -1,6 +1,6 @@
-interface ITodo {
-    title: string,
-    timestamp: string
+export interface ITodo {
+	title: string;
+	timestamp: string;
 }
 
-type TAddTodo = (todo: ITodo) => void
+export type TAddTodo = (todo: ITodo) => void
