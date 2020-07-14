@@ -1,17 +1,33 @@
-import React, { FC } from 'react'
-import { ITodo } from '../types'
-import { StyleSheet, Text, View } from 'react-native'
+import React, { CSSProperties, FC } from 'react'
+import { ITodo, TMarkAndDelete } from '../types'
+import {
+	StyleSheet,
+	Text,
+	TextStyle,
+	TouchableOpacity,
+	View,
+} from 'react-native'
 
 type TProps = {
 	todo: ITodo,
+	markTodo: TMarkAndDelete,
+	deleteTodo: TMarkAndDelete,
 }
 
-export const Todo: FC<TProps> = ({ todo }) => {
-	const { timestamp, title } = todo
+export const Todo: FC<TProps> = ({ todo, markTodo, deleteTodo }) => {
+	const { timestamp, title, completed } = todo
+	let completedStyle: TextStyle = {}
+	completedStyle.textDecorationLine = completed ? 'line-through' : 'none'
 	return (
-		<View style={styles.todoDiv}>
-			<Text style={styles.todoText}>{title}</Text>
-		</View>
+		<TouchableOpacity
+			activeOpacity={0.8}
+			onPress={markTodo.bind(null, timestamp)}
+			onLongPress={deleteTodo.bind(null, timestamp)}
+		>
+			<View style={styles.todoDiv}>
+				<Text style={[styles.todoText, completedStyle]}>{title}</Text>
+			</View>
+		</TouchableOpacity>
 	)
 }
 
@@ -27,8 +43,8 @@ const styles = StyleSheet.create({
 		borderWidth: 2,
 		marginVertical: 5,
 		borderRadius: 6,
-		width: '80%',
 		padding: 5,
+		minWidth: '80%',
 		minHeight: 40,
 		alignItems: 'center',
 		justifyContent: 'center',

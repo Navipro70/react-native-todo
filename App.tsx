@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { ITodo, TAddTodo } from './src/types'
-import { ScrollView, StyleSheet, Text } from 'react-native'
+import { FlatList, StyleSheet, Text } from 'react-native'
 import { Navbar } from './src/components/Navbar'
 import { AddingTodo } from './src/components/AddingTodo'
 import { Todo } from './src/components/Todo'
@@ -10,21 +10,33 @@ export default function App() {
 	const addTodo: TAddTodo = (todo) => {
 		setTodos([todo, ...todos])
 	}
+	const markTodo = (todoTimestamp: string) => {
+		setTodos((prevTodos) =>
+			prevTodos.map((todo) => {
+				if (todo.timestamp === todoTimestamp) todo.completed = !todo.completed
+				return todo
+			})
+		)
+	}
+	const deleteTodo = (todoTimestamp: string) => {
+		setTodos((prevTodos) =>
+			prevTodos.filter((todo) => todo.timestamp !== todoTimestamp)
+		)
+	}
 
 	return (
 		<>
 			<Navbar />
 			<AddingTodo addTodo={addTodo} />
-			<ScrollView
+			<FlatList
 				style={styles.allTodos}
 				contentContainerStyle={{ alignItems: 'center' }}
-			>
-				{todos ? (
-					todos.map((todo) => <Todo key={todo.timestamp} todo={todo} />)
-				) : (
-					<Text>Todo list is empty</Text>
+				renderItem={({ item }) => (
+					<Todo todo={item} deleteTodo={deleteTodo} markTodo={markTodo} />
 				)}
-			</ScrollView>
+				data={todos}
+				keyExtractor={(item) => item.timestamp}
+			/>
 		</>
 	)
 }

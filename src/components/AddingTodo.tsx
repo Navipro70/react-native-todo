@@ -12,6 +12,7 @@ export const AddingTodo: FC<TProps> = ({ addTodo }) => {
 		addTodo({
 			timestamp: new Date().toISOString(),
 			title: inputText,
+			completed: false,
 		})
 		setInputText('')
 	}
