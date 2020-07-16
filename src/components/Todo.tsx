@@ -7,21 +7,20 @@ import {
 	TouchableOpacity,
 	View,
 } from 'react-native'
+import { IMainScreenProps } from '../Screens/MainScreen'
 
-type TProps = {
+type TTodoProps = Pick<IMainScreenProps, 'setTodo' | 'deleteTodo'> & {
 	todo: ITodo,
-	markTodo: TMarkAndDelete,
-	deleteTodo: TMarkAndDelete,
 }
 
-export const Todo: FC<TProps> = ({ todo, markTodo, deleteTodo }) => {
+export const Todo: FC<TTodoProps> = ({ todo, setTodo, deleteTodo }) => {
 	const { timestamp, title, completed } = todo
 	let completedStyle: TextStyle = {}
 	completedStyle.textDecorationLine = completed ? 'line-through' : 'none'
 	return (
 		<TouchableOpacity
 			activeOpacity={0.8}
-			onPress={markTodo.bind(null, timestamp)}
+			onPress={setTodo.bind(null, timestamp)}
 			onLongPress={deleteTodo.bind(null, timestamp)}
 		>
 			<View style={styles.todoDiv}>
